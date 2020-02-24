@@ -41,7 +41,7 @@ router.post(
       const salt = await bcrypt.genSalt(10);
 
       user.password = await bcrypt.hash(password, salt);
-
+      res.status(400).json({ msg: "user has Created" });
       await user.save();
     } catch (error) {
       console.log(err.message);

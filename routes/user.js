@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth");
 const router = express.Router();
 // const config = require("config");
 const { check, validationResult } = require("express-validator");
@@ -88,5 +89,16 @@ router.post(
     }
   }
 );
+
+//Get Current user
+router.get("/current", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Eror");
+  }
+});
 
 module.exports = router;

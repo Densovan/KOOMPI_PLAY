@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const colors = require("colors");
 require("dotenv").config();
 const app = express();
 
@@ -18,9 +19,11 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false
   })
-  .then(() => console.log("Database is Connected...."))
+  .then(() => console.log("Database is Connected....".green.bold))
   .catch(err => console.log(err));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Server started on Port ${PORT}`.green.bold)
+);
